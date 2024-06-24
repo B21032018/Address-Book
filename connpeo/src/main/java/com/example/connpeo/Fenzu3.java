@@ -30,13 +30,8 @@ public class Fenzu3 extends AppCompatActivity {
     RecyclerView recentlyViewedRecycler;
     FenzuAdapter fenzuAdapter;
     private DatabaseHelper databaseHelper;
-    private LinearLayout layoutIndex;
-    private String id="家人";// 定义一个输入id的编辑框组件
-    private Handler handler; // 定义一个android.os.Handler对象
-    private String result = "",params=""; // 定义一个代表显示内容的字符串
-    private String name="",beiyong="",tel="",img, fenzu;
+    private final String id="家人";// 定义一个输入id的编辑框组件
     java.util.List<Fenzued> luntanFenzuedList = new ArrayList<>();
-    java.util.List<Map<String,Object>> List = new ArrayList<Map<String,Object>>();
     private TextView a,b,d,zm;
     private ImageView sea,add;
 
