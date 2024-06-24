@@ -6,7 +6,6 @@ public class RecentlyViewed implements Serializable, Comparable<RecentlyViewed> 
 
     String name;
     String beiyong;
-
     String tel;
     String img;
     String fenzu;
