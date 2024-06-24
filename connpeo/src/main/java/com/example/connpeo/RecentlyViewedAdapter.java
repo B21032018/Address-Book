@@ -26,17 +26,18 @@ import java.util.List;
 // 适配器类，继承自RecyclerView.Adapter
 public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAdapter.RecentlyViewedViewHolder> {
     Context context; // 上下文对象
-    List<RecentlyViewed> luntanRecentlyViewedList = new ArrayList<>(); // 最近浏览项列表
-    private Bitmap bitmap;
+    // 存储RecentlyViewed对象的列表，每个对象代表列表中的一项
+    List<RecentlyViewed> luntanRecentlyViewedList = new ArrayList<>();
+    //用于临时存储加载的图片资源
     private Bitmap imgBitmap = null;
 
-    // 构造方法
+    // 构造方法,初始化适配器的上下文和数据列表
     public RecentlyViewedAdapter(Context context, List<RecentlyViewed> luntanRecentlyViewedList) {
         this.context = context;
         this.luntanRecentlyViewedList = luntanRecentlyViewedList;
     }
 
-    // 创建ViewHolder
+    // 创建ViewHolder,使用LayoutInflater从XML布局文件recently_viewed_items加载视图，并将其包裹在一个RecentlyViewedViewHolder实例中返回
     @NonNull
     @Override
     public RecentlyViewedViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,7 +46,9 @@ public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAd
         return new RecentlyViewedViewHolder(view);
     }
 
-    // 绑定ViewHolder
+    // 将数据绑定到ViewHolder的视图上。
+    // 这里包括设置TextView的内容、使用Glide库异步加载并显示图片、
+    // 设置item的点击监听器以启动新的Activity并传递数据，以及根据数据动态调整字母索引和下划线的可见性
     @Override
     public void onBindViewHolder(@NonNull RecentlyViewedViewHolder holder, final int position) {
         final RecentlyViewed user = luntanRecentlyViewedList.get(position);
