@@ -42,6 +42,7 @@ public class Perdet extends AppCompatActivity {
     private ImageView back,Img;
 
 
+    // 定义一个数据库助手对象，用于与数据库交互
     private DatabaseHelper databaseHelper;
 
     // 定义一个Bitmap对象，用于存储图片
@@ -166,4 +167,4 @@ public class Perdet extends AppCompatActivity {
             }
         });
     }
-}}
+}
