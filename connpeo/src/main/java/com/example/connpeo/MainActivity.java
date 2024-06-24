@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     RecyclerView recentlyViewedRecycler;
     RecentlyViewedAdapter recentlyViewedAdapter;
     private LinearLayout layoutIndex; // 用于显示索引的线性布局
-
+    private DatabaseHelper databaseHelper;
     private final String id = "1"; // 定义一个输入id的编辑框组件
     private Handler handler; // 定义一个android.os.Handler对象
     private final String result = "";
