@@ -15,13 +15,21 @@ import java.util.List;
 
 public class Fenzu extends AppCompatActivity {
 
+    // RecyclerView用于展示最近查看的列表
     RecyclerView recentlyViewedRecycler;
+
+    // 适配器，用于将数据绑定到RecyclerView
     FenzuAdapter fenzuAdapter;
+
+    // 数据库帮助类，用于操作数据库
     private DatabaseHelper databaseHelper;
+
     private final String id="同学";// 定义一个输入id的编辑框组件
+
+    // 创建一个ArrayList来存储Fenzued对象列表
     java.util.List<Fenzued> ConnpeoFenzuedList = new ArrayList<>();
     private TextView b,c,d,zm;
-    private ImageView sea,add;
+    private ImageView sea,add;//图标跳转
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
