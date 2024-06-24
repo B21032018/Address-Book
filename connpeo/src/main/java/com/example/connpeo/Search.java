@@ -8,20 +8,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,29 +21,29 @@ import java.util.Map;
 
 public class Search extends AppCompatActivity {
 
-    private EditText namea;// 定义一个输入课程的编辑框组件
-    private Handler handler; // 定义一个android.os.Handler对象
-    private String result = ""; // 定义一个代表显示内容的字符串
+    //获取布局文件中的EditText、ImageView、RecyclerView等组件
+    private EditText namea;
     private DatabaseHelper databaseHelper;
     private String name = "", img = "", beiyong = "", tel = "",fenzu="";
-    private RecyclerView listView;
     FenzuAdapter fenzuAdapter;
     private ImageView back;
-    java.util.List<Map<String, Object>> List = new ArrayList<Map<String, Object>>();
     RecyclerView recentlyViewedRecycler;
-    List<Fenzued> luntanRecentlyViewedList = new ArrayList<>();
+    List<Fenzued> lstRecentlyViewedList = new ArrayList<>();
 
+
+    //在onCreate方法中，设置布局文件为activity_search。
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        namea = (EditText) findViewById(R.id.name); //获取用于输入课程的编辑框组件
+        namea = (EditText) findViewById(R.id.name);
 
         recentlyViewedRecycler = findViewById(R.id.listview);
 
-        // 创建数据库助手实例
+        //创建一个DatabaseHelper对象，用于操作数据库
         databaseHelper = new DatabaseHelper(this);
 
+        //为返回按钮设置点击事件，跳转回主界面。
         back = findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,17 +54,18 @@ public class Search extends AppCompatActivity {
             }
         });
 
-        TextView cha = (TextView) findViewById(R.id.cha);    //获取用于登录的按钮控件
-        cha.setOnClickListener(new View.OnClickListener() {  //实现单击查询按钮，发送信息与服务器交互
+        TextView cha = (TextView) findViewById(R.id.cha);
+        cha.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 name = namea.getText().toString();
                 Log.i("nnnnnnnnnname", name);
 
+                //创建一个Map对象，将输入框中的文本作为键值对存储
                 final Map<String, String> map = new HashMap<String, String>();
                 map.put("name", namea.getText().toString());
 
-                //当为空时给出相应提示
+                //获取输入框中的文本，并判断是否为空，如果为空则弹出提示框
                 if ("".equals(namea.getText().toString())) {
                     new AlertDialog.Builder(Search.this)
                             .setIcon(R.drawable.tishi)
@@ -85,6 +78,9 @@ public class Search extends AppCompatActivity {
                     return;
                 }
 
+                //调用queryDataS方法查询数据库，并将结果存储在dataList中
+                //遍历dataList，将数据添加到lstRecentlyViewedList中
+                //调用setRecentlyViewedRecycler方法，将数据设置到RecyclerView中
                 List<Fenzued> dataList = databaseHelper.queryDataS(name);
                 for (int i = 0; i < dataList.size(); i++) {
                     Fenzued fenzued = dataList.get(i);
@@ -95,8 +91,8 @@ public class Search extends AppCompatActivity {
                     String img = fenzued.getimg();
                     String fenzu = fenzued.getfenzu();
                     // ...
-                    luntanRecentlyViewedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
-                    setRecentlyViewedRecycler(luntanRecentlyViewedList);
+                    lstRecentlyViewedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
+                    setRecentlyViewedRecycler(lstRecentlyViewedList);
                 }
 
             }
@@ -104,6 +100,8 @@ public class Search extends AppCompatActivity {
 
     }
 
+    //定义setRecentlyViewedRecycler方法，用于设置RecyclerView的布局管理器和适配器
+    //确保 RecyclerView 能够正确地显示 fenzuedDataList 中的数据
     private void setRecentlyViewedRecycler(List<Fenzued> fenzuedDataList) {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Search.this,1);
         recentlyViewedRecycler.setLayoutManager(layoutManager);
