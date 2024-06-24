@@ -17,30 +17,22 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-// MainActivity类，继承自AppCompatActivity
 public class MainActivity extends AppCompatActivity {
 
+    private TextView fz; // 分组文本
     // RecyclerView用于显示浏览的项
     RecyclerView recentlyViewedRecycler;
     RecentlyViewedAdapter recentlyViewedAdapter;
-    private LinearLayout layoutIndex; // 用于显示索引的线性布局
     private DatabaseHelper databaseHelper;
     private final String id = "1"; // 定义一个输入id的编辑框组件
-    private Handler handler; // 定义一个android.os.Handler对象
-    private final String result = "";
-    private final String params = ""; // 定义代表显示内容的字符串
-    private final String name = "";
-    private final String beiyong = "";
-    private final String tel = "";
-    private String img;
-    private String fenzu; // 定义相关数据字段
     private ImageView sea, add; // 搜索和添加按钮
-    List<RecentlyViewed> ConnpeoRecentlyViewedList = new ArrayList<>(); // 浏览项的列表
-    List<Map<String, Object>> List = new ArrayList<>(); // 存储数据的列表
+    // 浏览项的列表
+    List<RecentlyViewed> ConnpeoRecentlyViewedList = new ArrayList<>();
+    // 存储数据的列表
+    List<Map<String, Object>> List = new ArrayList<>();
     SideBar sideBar; // 侧边栏控件
-    private TextView fz; // 分组文本
 
-    // onCreate方法，当活动创建时调用
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
         sea = findViewById(R.id.sea);
         sea.setOnClickListener(new View.OnClickListener() {
             @Override
+            // 创建Intent跳转到Search活动
             public void onClick(View view) {
-                Intent i = new Intent(MainActivity.this, Search.class); // 创建Intent跳转到Search活动
+                Intent i = new Intent(MainActivity.this, Search.class);
                 startActivity(i); // 启动活动
                 finish(); // 结束当前活动
             }
@@ -94,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                 String tel = fenzued.gettel();
                 String img = fenzued.getimg();
                 String fenzu = fenzued.getfenzu();
-                // 添加到最近浏览项列表
+                // 添加到列表
                 ConnpeoRecentlyViewedList.add(new RecentlyViewed(name, beiyong, tel, img, fenzu));
                 setRecentlyViewedRecycler(ConnpeoRecentlyViewedList); // 设置RecyclerView
                 Collections.sort(ConnpeoRecentlyViewedList); // 对列表进行排序
