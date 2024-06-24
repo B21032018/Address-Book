@@ -83,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-       
-
         // 查询数据
         new Thread(() -> {
             List<RecentlyViewed> dataList = databaseHelper.queryDataA(); // 从数据库查询数据
@@ -102,5 +100,26 @@ public class MainActivity extends AppCompatActivity {
                 Collections.sort(ConnpeoRecentlyViewedList); // 对列表进行排序
             }
         }).start(); // 启动线程
+    }
+
+    // 设置浏览项的RecyclerView
+    private void setRecentlyViewedRecycler(List<RecentlyViewed> recentlyViewedDataList) {
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(MainActivity.this, 1); // 设置布局管理器
+        recentlyViewedRecycler.setLayoutManager(layoutManager); // 设置RecyclerView的布局管理器
+        recentlyViewedAdapter = new RecentlyViewedAdapter(this, recentlyViewedDataList); // 创建适配器
+        recentlyViewedRecycler.setAdapter(recentlyViewedAdapter); // 设置适配器
+
+        // 设置侧边栏的选择回调
+        sideBar.setOnStrSelectCallBack(new SideBar.ISideBarSelectCallBack() {
+            @Override
+            public void onSelectStr(int index, String selectStr) {
+                for (int i = 0; i < recentlyViewedDataList.size(); i++) {
+                    if (selectStr.equalsIgnoreCase(recentlyViewedDataList.get(i).getStart())) {
+                        recentlyViewedRecycler.scrollToPosition(i); // 滚动到指定位置
+                        return;
+                    }
+                }
+            }
+        });
     }
 }
