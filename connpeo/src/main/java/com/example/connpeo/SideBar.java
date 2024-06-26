@@ -81,20 +81,18 @@ public class SideBar extends TextView {
             scaleWidth = ta.getDimensionPixelSize(R.styleable.SideBar_scaleWidth, dp(100));
             ta.recycle();
         }
-        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setColor(getCurrentTextColor());
-        textPaint.setTextSize(getTextSize());
-        textPaint.setTextAlign(Paint.Align.CENTER);
-        bigTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        bigTextPaint.setColor(getCurrentTextColor());
-        bigTextPaint.setTextSize(getTextSize() * (scaleSize + 3));
-        bigTextPaint.setTextAlign(Paint.Align.CENTER);
-        scaleTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        scaleTextPaint.setColor(getCurrentTextColor());
-        scaleTextPaint.setTextSize(getTextSize() * (scaleSize + 1));
-        scaleTextPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint = createPaint(getTextSize());
+        bigTextPaint = createPaint(getTextSize() * (scaleSize + 3));
+        scaleTextPaint = createPaint(getTextSize() * (scaleSize + 1));
     }
 
+    private Paint createPaint(float textSize) {
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(getCurrentTextColor());
+        paint.setTextSize(textSize);
+        paint.setTextAlign(Paint.Align.CENTER);
+        return paint;
+    }
 
     //设置回调接口，这个接口定义了在侧边栏中选择项目后的回调方法
     public void setOnStrSelectCallBack(ISideBarSelectCallBack callBack) {
