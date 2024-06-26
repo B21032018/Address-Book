@@ -31,7 +31,7 @@ public class Fenzu4 extends AppCompatActivity {
     FenzuAdapter fenzuAdapter;
     private DatabaseHelper databaseHelper;
     private final String id="其它";// 定义一个输入id的编辑框组件
-    java.util.List<Fenzued> luntanFenzuedList = new ArrayList<>();
+    java.util.List<Fenzued> ConnpeoFenzuedList = new ArrayList<>();
     private TextView a,c,b,zm;
     private ImageView sea,add;
 
@@ -115,8 +115,8 @@ public class Fenzu4 extends AppCompatActivity {
                 String img = fenzued.getimg();
                 String fenzu = fenzued.getfenzu();
                 // ...
-                luntanFenzuedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
-                setRecentlyViewedRecycler(luntanFenzuedList);
+                ConnpeoFenzuedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
+                setRecentlyViewedRecycler(ConnpeoFenzuedList);
             }
         }).start();
 
