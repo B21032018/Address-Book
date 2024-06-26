@@ -11,10 +11,6 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/ViewPagerGallery-master" />
-            <option value="$PROJECT_DIR$/aaaaa" />
-            <option value="$PROJECT_DIR$/aaaappp" />
-            <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/connpeo" />
             <option value="$PROJECT_DIR$/git" />
             <option value="$PROJECT_DIR$/group" />
