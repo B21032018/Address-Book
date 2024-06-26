@@ -22,8 +22,6 @@ import com.bumptech.glide.request.transition.Transition;
 
 import java.util.ArrayList;
 import java.util.List;
-
-// 适配器类，继承自RecyclerView.Adapter
 public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAdapter.RecentlyViewedViewHolder> {
     Context context; // 上下文对象
     // 存储RecentlyViewed对象的列表，每个对象代表列表中的一项
@@ -90,7 +88,6 @@ public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAd
         } else {
             holder.letterlayout.setVisibility(View.GONE);
         }
-
         if (position != getItemCount() - 1 && luntanRecentlyViewedList.get(position).getStart().equalsIgnoreCase(luntanRecentlyViewedList.get(position + 1).getStart())) {
             holder.underline.setVisibility(View.VISIBLE);
         } else {

@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "my_database";
     private static final int DATABASE_VERSION = 1;
-    private static final String TABLE_NAME = "my_table";
+    public static final String TABLE_NAME = "my_table";
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -143,5 +143,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return dataList;
     }
-
 }
