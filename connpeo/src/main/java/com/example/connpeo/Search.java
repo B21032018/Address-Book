@@ -18,95 +18,102 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Search extends AppCompatActivity {
 
-    //获取布局文件中的EditText、ImageView、RecyclerView等组件
-    private EditText namea;
+    private EditText nameEditText;
     private DatabaseHelper databaseHelper;
-    private String name = "", img = "", beiyong = "", tel = "",fenzu="";
-    FenzuAdapter fenzuAdapter;
+    private RecyclerView recentlyViewedRecycler;
+    private List<Fenzued> lstRecentlyViewedList = new ArrayList<>();
+    private FenzuAdapter fenzuAdapter;
     private ImageView back;
-    RecyclerView recentlyViewedRecycler;
-    List<Fenzued> lstRecentlyViewedList = new ArrayList<>();
 
-
-    //在onCreate方法中，设置布局文件为activity_search。
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        namea = (EditText) findViewById(R.id.name);
-
+        // 初始化界面组件
+        nameEditText = findViewById(R.id.name);
         recentlyViewedRecycler = findViewById(R.id.listview);
+        back = findViewById(R.id.back);
 
-        //创建一个DatabaseHelper对象，用于操作数据库
+        // 创建数据库操作对象
         databaseHelper = new DatabaseHelper(this);
 
-        //为返回按钮设置点击事件，跳转回主界面。
-        back = findViewById(R.id.back);
+        // 返回按钮点击事件
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(Search.this, MainActivity.class);
-                startActivity(i);
-                finish();
+                navigateToMainActivity();
             }
         });
 
-        TextView cha = (TextView) findViewById(R.id.cha);
-        cha.setOnClickListener(new View.OnClickListener() {
+        // 查询按钮点击事件
+        TextView searchButton = findViewById(R.id.cha);
+        searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                name = namea.getText().toString();
-                Log.i("nnnnnnnnnname", name);
+                String searchName = nameEditText.getText().toString().trim();
 
-                //创建一个Map对象，将输入框中的文本作为键值对存储
-                final Map<String, String> map = new HashMap<String, String>();
-                map.put("name", namea.getText().toString());
-
-                //获取输入框中的文本，并判断是否为空，如果为空则弹出提示框
-                if ("".equals(namea.getText().toString())) {
-                    new AlertDialog.Builder(Search.this)
-                            .setIcon(R.drawable.tishi)
-                            .setTitle("提示")
-                            .setMessage("请输入查询信息")
-                            .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int whichButton) {
-                                }
-                            }).create().show();
+                // 输入验证
+                if (searchName.isEmpty()) {
+                    showEmptyInputAlert();
                     return;
                 }
 
-                //调用queryDataS方法查询数据库，并将结果存储在dataList中
-                //遍历dataList，将数据添加到lstRecentlyViewedList中
-                //调用setRecentlyViewedRecycler方法，将数据设置到RecyclerView中
-                List<Fenzued> dataList = databaseHelper.queryDataS(name);
-                for (int i = 0; i < dataList.size(); i++) {
-                    Fenzued fenzued = dataList.get(i);
-                    // 访问 fenzued 对象的属性
-                    String name = fenzued.getName();
-                    String beiyong = fenzued.getbeiyong();
-                    String tel = fenzued.gettel();
-                    String img = fenzued.getimg();
-                    String fenzu = fenzued.getfenzu();
-                    // ...
-                    lstRecentlyViewedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
-                    setRecentlyViewedRecycler(lstRecentlyViewedList);
-                }
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                executor.submit(() -> {
+                    List<Fenzued> dataList = databaseHelper.queryDataS(searchName);
+                    List<Fenzued> updatedList = new ArrayList<>();
 
+                    // 批量处理数据
+                    for (Fenzued fenzued : dataList) {
+                        String name = fenzued.getName();
+                        String beiyong = fenzued.getbeiyong();
+                        String tel = fenzued.gettel();
+                        String img = fenzued.getimg();
+                        String fenzu = fenzued.getfenzu();
+                        updatedList.add(new Fenzued(name, beiyong, tel, img, fenzu));
+                    }
+
+                    // 在UI线程更新RecyclerView
+                    runOnUiThread(() -> setRecentlyViewedRecycler(updatedList));
+                });
+
+                // 关闭线程池
+                executor.shutdown();
             }
         });
-
     }
 
-    //定义setRecentlyViewedRecycler方法，用于设置RecyclerView的布局管理器和适配器
-    //确保 RecyclerView 能够正确地显示 fenzuedDataList 中的数据
+    // 设置 RecyclerView
     private void setRecentlyViewedRecycler(List<Fenzued> fenzuedDataList) {
-        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Search.this,1);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this, 1);
         recentlyViewedRecycler.setLayoutManager(layoutManager);
         fenzuAdapter = new FenzuAdapter(this, fenzuedDataList);
         recentlyViewedRecycler.setAdapter(fenzuAdapter);
     }
 
+    // 返回主界面
+    private void navigateToMainActivity() {
+        Intent intent = new Intent(Search.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // 显示空输入提示
+    private void showEmptyInputAlert() {
+        new AlertDialog.Builder(Search.this)
+                .setIcon(R.drawable.tishi)
+                .setTitle("提示")
+                .setMessage("请输入查询信息")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        // 可以添加处理空输入的逻辑，如聚焦输入框
+                    }
+                }).create().show();
+    }
 }
