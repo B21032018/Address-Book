@@ -19,19 +19,9 @@ import java.util.Map;
 public class Fenzu2 extends AppCompatActivity {
     RecyclerView recentlyViewedRecycler;
     FenzuAdapter fenzuAdapter;
-    private LinearLayout layoutIndex;
     private DatabaseHelper databaseHelper;
     private final String id="同事";// 定义一个输入id的编辑框组件
-    private Handler handler; // 定义一个android.os.Handler对象
-    private final String result = "";
-    private final String params=""; // 定义一个代表显示内容的字符串
-    private final String name="";
-    private final String beiyong="";
-    private final String tel="";
-    private String img;
-    private String fenzu;
     java.util.List<Fenzued> ConnpeoFenzuedList = new ArrayList<>();
-    java.util.List<Map<String,Object>> List = new ArrayList<Map<String,Object>>();
     private TextView a,c,d,zm;
     private ImageView sea,add;
 
