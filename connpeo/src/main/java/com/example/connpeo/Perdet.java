@@ -103,12 +103,14 @@ public class Perdet extends AppCompatActivity {
         });
 
         //声明一个下拉列表的数组适配器
+        //创建一个新的ArrayAdapter对象，这个对象用于将一个数组的数据绑定到一个下拉列表的UI元素上
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, categories);
 
         // 创建数据库助手实例
         databaseHelper = new DatabaseHelper(this);
 
         //设置下拉框的数组适配器,显示下拉选项
+        //调用setAdapter方法，Fenzu下拉列表现在会显示categories数组中的所有选项
         Fenzu.setAdapter(adapter);
 
         xiugai = (Button)findViewById(R.id.xiugai);
@@ -122,6 +124,7 @@ public class Perdet extends AppCompatActivity {
                 databaseHelper.updateData(Name.getText().toString(), Beiyong.getText().toString(),Tel.getText().toString(),selectedValue);
 
                 // 显示一个Toast消息，提示用户联系人修改成功
+                //Toast.LENGTH_SHORT表明Toast显示的持续时间
                 Toast.makeText(Perdet.this, "联系人修改成功",Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(Perdet.this, MainActivity.class);
@@ -157,11 +160,12 @@ public class Perdet extends AppCompatActivity {
             @Override
             // 当图片资源加载完成时调用此方法
             public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                imgBitmap = resource;
-                Img.setImageBitmap(imgBitmap);
+                imgBitmap = resource;//将加载到的 Bitmap 赋值给成员变量 imgBitmap
+                Img.setImageBitmap(imgBitmap);//将 Bitmap 设置到 ImageView
             }
             @Override
             // 当加载的图片被清除时调用此方法
+            //在 onLoadCleared 方法中，通常不需要进行图片资源的显式清除，因为 Glide 会自动管理资源的释放
             public void onLoadCleared(@Nullable Drawable placeholder) {
 
             }
