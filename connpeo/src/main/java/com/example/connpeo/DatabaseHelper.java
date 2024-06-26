@@ -104,7 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public List<RecentlyViewed> queryDataA() {
         List<RecentlyViewed> dataList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM my_table ", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM my_table", null);
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("_id"));

@@ -137,6 +137,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 创建数据库助手实例
+        databaseHelper = new DatabaseHelper(this);
         // 查询数据
         new Thread(() -> {
             List<RecentlyViewed> dataList = databaseHelper.queryDataA(); // 从数据库查询数据
