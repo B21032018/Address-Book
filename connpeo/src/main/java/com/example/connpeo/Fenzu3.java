@@ -6,24 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class Fenzu3 extends AppCompatActivity {
 
@@ -31,7 +19,7 @@ public class Fenzu3 extends AppCompatActivity {
     FenzuAdapter fenzuAdapter;
     private DatabaseHelper databaseHelper;
     private final String id="家人";// 定义一个输入id的编辑框组件
-    java.util.List<Fenzued> luntanFenzuedList = new ArrayList<>();
+    java.util.List<Fenzued> ConnpeoFenzuedList = new ArrayList<>();
     private TextView a,b,d,zm;
     private ImageView sea,add;
 
@@ -116,8 +104,8 @@ public class Fenzu3 extends AppCompatActivity {
                 String img = fenzued.getimg();
                 String fenzu = fenzued.getfenzu();
                 // ...
-                luntanFenzuedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
-                setRecentlyViewedRecycler(luntanFenzuedList);
+                ConnpeoFenzuedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
+                setRecentlyViewedRecycler(ConnpeoFenzuedList);
             }
         }).start();
 
