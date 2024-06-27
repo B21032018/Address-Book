@@ -79,10 +79,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     @SuppressLint("Range")
-    public List<Fenzued> queryData(String a) {
+    public List<Fenzued> queryData(String x) {
         List<Fenzued> dataList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM my_table WHERE fenzu LIKE '%"+a+"%'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM my_table WHERE fenzu LIKE '%"+x+"%'", null);
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("_id"));
@@ -123,10 +123,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     @SuppressLint("Range")
-    public List<Fenzued> queryDataS(String a) {
+    public List<Fenzued> queryDataS(String x) {
         List<Fenzued> dataList = new ArrayList<>();
         SQLiteDatabase db = getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM my_table WHERE name LIKE '%"+a+"%'", null);
+        Cursor cursor = db.rawQuery("SELECT * FROM my_table WHERE name LIKE '%"+x+"%'", null);
         if (cursor.moveToFirst()) {
             do {
                 @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex("_id"));
