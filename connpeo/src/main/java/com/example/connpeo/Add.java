@@ -57,18 +57,16 @@ import java.util.Locale;
 public class Add extends AppCompatActivity {
 
     private ImageView back;
-    Handler handler; // 定义一个android.os.Handler对象
     Button takePhoto,chooseFromAlbum;
     private static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
     private ImageView picture;
-    List<RecentlyViewed> RecentlyViewedList = new ArrayList<>();
-    String img="",param=null;
+    String img="";
     private Button dianji;
     private TextView Name, Beiyong,Tel;
-    String result=null,id="1";
     private Spinner Fenzu;
     private String[] fenlei = {"同学", "家人", "同事", "其他"};
+    List<RecentlyViewed> RecentlyViewedList = new ArrayList<>();
     String selectedValue;
     Uri imageUri;
     private DatabaseHelper databaseHelper;
@@ -267,7 +265,6 @@ public class Add extends AppCompatActivity {
         if(imagePath != null){
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             Uri imageUri = saveBitmapToFile(Add.this, bitmap);
-            Log.i("imageUri",imageUri.toString());
             picture.setImageBitmap(bitmap);
         }else {
             Toast.makeText(this,"failed to get image", Toast.LENGTH_SHORT).show();
