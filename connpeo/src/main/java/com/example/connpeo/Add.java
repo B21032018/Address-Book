@@ -196,12 +196,6 @@ public class Add extends AppCompatActivity {
                     Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                     picture.setImageBitmap(bitmap);//将该图片设置到 picture 控件中显示
                     imageUri = saveBitmapToFile(Add.this, bitmap);
-
-                    //压缩为png存入stream，再转换为字节数组 bytes，并使用 Base64 编码转换为字符串 img，用于存储或传输
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
-                    byte[] bytes = stream.toByteArray();
-                    img = Base64.encodeToString(bytes,Base64.DEFAULT);
                 }
                 break;
             case CHOOSE_PHOTO:
@@ -284,7 +278,13 @@ public class Add extends AppCompatActivity {
     public static Uri saveBitmapToFile(Context context, Bitmap bitmap) {
         // 获取应用的缓存目录
         File cacheDir = context.getExternalCacheDir();
-        File imageFile = new File(cacheDir, "image.jpg");
+
+        // 创建一个唯一的文件名，使用当前时间戳
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String fileName = "image_" + timeStamp + ".jpg"; // 以时间戳命名图片文件
+
+
+        File imageFile = new File(cacheDir,fileName);
         try {
             // 创建文件输出流
             FileOutputStream fos = new FileOutputStream(imageFile);
