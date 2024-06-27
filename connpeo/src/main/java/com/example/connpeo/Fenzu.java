@@ -110,13 +110,14 @@ public class Fenzu extends AppCompatActivity {
                 String tel = fenzued.gettel();
                 String img = fenzued.getimg();
                 String fenzu = fenzued.getfenzu();
-                // ...
+                // 从持久化存储中检索数据以在应用的用户界面（UI）上显示
                 ConnpeoFenzuedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
                 setRecentlyViewedRecycler(ConnpeoFenzuedList);
             }
         }).start();
     }
 
+    //设置RecyclerView的布局管理器、适配器和数据
     private void setRecentlyViewedRecycler(List<Fenzued> fenzuedDataList) {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(Fenzu.this,1);
         recentlyViewedRecycler.setLayoutManager(layoutManager);

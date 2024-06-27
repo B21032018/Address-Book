@@ -16,12 +16,8 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "finalAPP"
-include ':app'
-include ':aaaappp'
-include ':aaaaa'
 include ':git'
 include ':group'
 include ':connpeo'
 include ':list'
-include ':ViewPagerGallery-master'
 include ':sqlite'
