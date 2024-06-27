@@ -100,6 +100,7 @@ public class Fenzu extends AppCompatActivity {
         databaseHelper = new DatabaseHelper(this);
 
         // 查询数据
+        //由于数据库操作可能会阻塞UI线程，因此将数据库查询操作放在新线程中执行
         new Thread(() -> {
             List<Fenzued> dataList = databaseHelper.queryData(id);
             for (int i = 0; i < dataList.size(); i++) {
@@ -111,8 +112,11 @@ public class Fenzu extends AppCompatActivity {
                 String img = fenzued.getimg();
                 String fenzu = fenzued.getfenzu();
                 // 从持久化存储中检索数据以在应用的用户界面（UI）上显示
+                //创建了一个新的Fenzued对象（使用从数据库查询到的数据），并将其添加到ConnpeoFenzuedList列表中
                 ConnpeoFenzuedList.add(new Fenzued(name, beiyong,  tel, img, fenzu));
+
                 setRecentlyViewedRecycler(ConnpeoFenzuedList);
+                //在循环内部调用setRecentlyViewedRecycler方法，并将ConnpeoFenzuedList作为参数传递给它
             }
         }).start();
     }
