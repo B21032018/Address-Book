@@ -25,14 +25,14 @@ import java.util.List;
 public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAdapter.RecentlyViewedViewHolder> {
     Context context; // 上下文对象
     // 存储RecentlyViewed对象的列表，每个对象代表列表中的一项
-    List<RecentlyViewed> luntanRecentlyViewedList = new ArrayList<>();
+    List<RecentlyViewed> ConnpeoRecentlyViewedList = new ArrayList<>();
     //用于临时存储加载的图片资源
     private Bitmap imgBitmap = null;
 
     // 构造方法,初始化适配器的上下文和数据列表
     public RecentlyViewedAdapter(Context context, List<RecentlyViewed> luntanRecentlyViewedList) {
         this.context = context;
-        this.luntanRecentlyViewedList = luntanRecentlyViewedList;
+        this.ConnpeoRecentlyViewedList = luntanRecentlyViewedList;
     }
 
     // 创建ViewHolder,使用LayoutInflater从XML布局文件recently_viewed_items加载视图，并将其包裹在一个RecentlyViewedViewHolder实例中返回
@@ -49,9 +49,9 @@ public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAd
     // 设置item的点击监听器以启动新的Activity并传递数据，以及根据数据动态调整字母索引和下划线的可见性
     @Override
     public void onBindViewHolder(@NonNull RecentlyViewedViewHolder holder, final int position) {
-        final RecentlyViewed user = luntanRecentlyViewedList.get(position);
-        holder.name.setText(luntanRecentlyViewedList.get(position).getName());
-        String url = luntanRecentlyViewedList.get(position).getimg();
+        final RecentlyViewed user = ConnpeoRecentlyViewedList.get(position);
+        holder.name.setText(ConnpeoRecentlyViewedList.get(position).getName());
+        String url = ConnpeoRecentlyViewedList.get(position).getimg();
         Glide.with(holder.img.getContext()).asBitmap().load(url).into(new CustomTarget<Bitmap>() {
             @SuppressLint("ClickableViewAccessibility")
             @Override
@@ -71,24 +71,24 @@ public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAd
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(context, Perdet.class);
-                i.putExtra("name", luntanRecentlyViewedList.get(position).getName());
-                i.putExtra("beiyong", luntanRecentlyViewedList.get(position).getbeiyong());
-                i.putExtra("tel", luntanRecentlyViewedList.get(position).gettel());
-                i.putExtra("img", luntanRecentlyViewedList.get(position).getimg());
-                i.putExtra("fenzu", luntanRecentlyViewedList.get(position).getfenzu());
+                i.putExtra("name", ConnpeoRecentlyViewedList.get(position).getName());
+                i.putExtra("beiyong", ConnpeoRecentlyViewedList.get(position).getbeiyong());
+                i.putExtra("tel", ConnpeoRecentlyViewedList.get(position).gettel());
+                i.putExtra("img", ConnpeoRecentlyViewedList.get(position).getimg());
+                i.putExtra("fenzu", ConnpeoRecentlyViewedList.get(position).getfenzu());
                 context.startActivity(i);
             }
         });
 
         // 设置字母索引和下划线的可见性
-        String mark = luntanRecentlyViewedList.get(position).getStart();
+        String mark = ConnpeoRecentlyViewedList.get(position).getStart();
         if (position == getPosition(mark)) {
             holder.letterlayout.setVisibility(View.VISIBLE);
-            holder.letter.setText(luntanRecentlyViewedList.get(position).getStart());
+            holder.letter.setText(ConnpeoRecentlyViewedList.get(position).getStart());
         } else {
             holder.letterlayout.setVisibility(View.GONE);
         }
-        if (position != getItemCount() - 1 && luntanRecentlyViewedList.get(position).getStart().equalsIgnoreCase(luntanRecentlyViewedList.get(position + 1).getStart())) {
+        if (position != getItemCount() - 1 && ConnpeoRecentlyViewedList.get(position).getStart().equalsIgnoreCase(ConnpeoRecentlyViewedList.get(position + 1).getStart())) {
             holder.underline.setVisibility(View.VISIBLE);
         } else {
             holder.underline.setVisibility(View.GONE);
@@ -98,7 +98,7 @@ public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAd
     // 获取指定字母索引的位置
     private int getPosition(String mark) {
         for (int i = 0; i < getItemCount(); i++) {
-            if (luntanRecentlyViewedList.get(i).getStart().equalsIgnoreCase(mark)) {
+            if (ConnpeoRecentlyViewedList.get(i).getStart().equalsIgnoreCase(mark)) {
                 return i;
             }
         }
@@ -108,7 +108,7 @@ public class RecentlyViewedAdapter extends RecyclerView.Adapter<RecentlyViewedAd
     // 获取项目总数
     @Override
     public int getItemCount() {
-        return luntanRecentlyViewedList.size();
+        return ConnpeoRecentlyViewedList.size();
     }
 
     // 自定义ViewHolder类
