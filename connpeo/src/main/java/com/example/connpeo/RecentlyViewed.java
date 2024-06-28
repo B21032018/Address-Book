@@ -12,7 +12,6 @@ public class RecentlyViewed implements Serializable, Comparable<RecentlyViewed> 
     String pinyin;  //中文转换为拼音
     String start; //首字母
 
-
     public RecentlyViewed(String name, String beiyong, String tel, String img, String fenzu) {
         this.name = name;
         this.beiyong = beiyong;

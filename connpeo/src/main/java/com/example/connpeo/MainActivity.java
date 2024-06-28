@@ -23,19 +23,15 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView fz; // 分组文本
     // RecyclerView用于显示浏览的项
     RecyclerView recentlyViewedRecycler;
     RecentlyViewedAdapter recentlyViewedAdapter;
-    private DatabaseHelper databaseHelper;
-    private final String id = "1"; // 定义一个输入id的编辑框组件
-    private ImageView sea, add,export; // 搜索和添加按钮
     // 浏览项的列表
     List<RecentlyViewed> ConnpeoRecentlyViewedList = new ArrayList<>();
-    // 存储数据的列表
-    List<Map<String, Object>> List = new ArrayList<>();
     SideBar sideBar; // 侧边栏控件
-
+    private ImageView sea, add, export; // 搜索和添加按钮
+    private TextView fz; // 分组文本
+    private DatabaseHelper databaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
